@@ -1,0 +1,28 @@
+{
+  "name": "discord_leave-multiple-users-private-channels",
+  "version": "1.0.0",
+  "description": "",
+  "main": "discord_leaveMultipleUsersPrivateChannels.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimonTod/discord_leaveMultipleUsersPrivateChannels.git"
+  },
+  "keywords": [
+    "discord",
+    "script",
+    "leave_channels"
+  ],
+  "author": "SimonTod",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimonTod/discord_leaveMultipleUsersPrivateChannels/issues"
+  },
+  "homepage": "https://github.com/SimonTod/discord_leaveMultipleUsersPrivateChannels#readme",
+  "dependencies": {
+    "prompt": "^1.0.0",
+    "request": "^2.87.0"
+  }
+}

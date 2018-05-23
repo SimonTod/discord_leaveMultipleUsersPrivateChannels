@@ -37,7 +37,7 @@ showLoading = function(show = true) {
 }
 
 showMessages = function(messages) {
-    $("#messages").html(messages.join('\n'));
+    $("#messages").html(messages.join('<br/>'));
 }
 
 showError = function(data) {

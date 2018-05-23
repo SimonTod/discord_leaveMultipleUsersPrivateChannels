@@ -74,31 +74,47 @@ module.exports = class DiscordApp {
 
   leaveMultipleUsersPrivateChannels(callback) {
     var count = 0;
+    var check = 0;
     this.responseMessages = [];
+    var myThis = this;
     this.channels.forEach(channel => {
       if (channel.recipients.length > 1) {
-        count++;
-        var options = { method: 'DELETE',
-        url: 'https://discordapp.com/api/v6/channels/' + channel.id,
-        headers: 
-        { 'Cache-Control': 'no-cache',
-          'Content-Type': 'application/json',
-          Authorization: this.token } };
+        count++;      
+        var options = { 
+          method: 'DELETE',
+          url: 'https://discordapp.com/api/v6/channels/' + channel.id,
+          headers: { 
+            'Cache-Control': 'no-cache',
+            'Content-Type': 'application/json',
+            Authorization: this.token
+          } 
+        };
   
-        var myThis = this;
         request(options, function (error, response, body) {
           if (response.statusCode !== 200)
-            return callback && callback("Could not leave channel" + channel.id);
-          else 
-            myThis.responseMessages.push("User left channel " + channel.id + ". This channel contained users " + channel.recipients.map(e => e.username).join(", ") + ".");
+            return callback && callback("Could not leave channel " + channel.id + ".");
+          else {
+            myThis.responseMessages.push("User left channel " + channel.id + ". This channel contained users " + channel.recipients.map(e => e.username).join(", ") + ".");            
+          }
+          check++;
         });
       }
+      else {
+        check++;
+      }
     });
-    count == 0 ? 
-      this.responseMessages.push("User had no channel containing more than 1 other user.") : 
-      this.responseMessages.push("A total of " + count + " channels were left by the user.");
 
-    return callback && callback();
+    var interval = setInterval(function() {
+      if (check == myThis.channels.length) {
+        clearInterval(interval);
+
+        count == 0 ? 
+          myThis.responseMessages.push("User had no channel containing more than 1 other user.") : 
+          myThis.responseMessages.push("A total of " + count + " channels were left by the user.");
+
+        myThis.responseMessages.push('test');
+        return callback && callback();
+      }
+    }, 100); 
   }
-
 }

@@ -85,16 +85,19 @@ module.exports = class DiscordApp {
           'Content-Type': 'application/json',
           Authorization: this.token } };
   
+        var myThis = this;
         request(options, function (error, response, body) {
-          if (response.statusCode !== 200) return callback && callback("Could not leave channel" + channel.id);
-          this.responseMessages.push("User left channel " + channel.id + ". This channel contained users " + channel.recipients.map(e => e.username).join(", ") + ".");
+          if (response.statusCode !== 200)
+            return callback && callback("Could not leave channel" + channel.id);
+          else 
+            myThis.responseMessages.push("User left channel " + channel.id + ". This channel contained users " + channel.recipients.map(e => e.username).join(", ") + ".");
         });
       }
     });
     count == 0 ? 
       this.responseMessages.push("User had no channel containing more than 1 other user.") : 
       this.responseMessages.push("A total of " + count + " channels were left by the user.");
-  
+
     return callback && callback();
   }
 

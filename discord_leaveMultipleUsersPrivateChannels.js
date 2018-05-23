@@ -50,9 +50,9 @@ module.exports = class DiscordApp {
   
     var myThis = this;
     request(options, function (error, response, body) {
-        if (response.statusCode !== 200) throw new Error("Could not log in");
+        if (response.statusCode !== 200) return callback && callback("Could not log in");
         myThis.token = body.token;
-        callback && callback();
+        return callback && callback();
     });
   }
 
@@ -66,9 +66,9 @@ module.exports = class DiscordApp {
   
     var myThis = this;
     request(options, function (error, response, body) {
-      if (response.statusCode !== 200) throw new Error("Could not get list of channels");
+      if (response.statusCode !== 200) return callback && callback("Could not get list of channels");
       myThis.channels = JSON.parse(body);
-      callback && callback();
+      return callback && callback();
     });
   }
 
@@ -86,7 +86,7 @@ module.exports = class DiscordApp {
           Authorization: this.token } };
   
         request(options, function (error, response, body) {
-          if (response.statusCode !== 200) throw new Error("Could not leave channel" + channel.id);
+          if (response.statusCode !== 200) return callback && callback("Could not leave channel" + channel.id);
           this.responseMessages.push("User left channel " + channel.id + ". This channel contained users " + channel.recipients.map(e => e.username).join(", ") + ".");
         });
       }
@@ -95,7 +95,7 @@ module.exports = class DiscordApp {
       this.responseMessages.push("User had no channel containing more than 1 other user.") : 
       this.responseMessages.push("A total of " + count + " channels were left by the user.");
   
-    callback && callback();
+    return callback && callback();
   }
 
 }

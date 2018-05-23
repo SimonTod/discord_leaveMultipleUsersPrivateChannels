@@ -112,7 +112,6 @@ module.exports = class DiscordApp {
           myThis.responseMessages.push("User had no channel containing more than 1 other user.") : 
           myThis.responseMessages.push("A total of " + count + " channels were left by the user.");
 
-        myThis.responseMessages.push('test');
         return callback && callback();
       }
     }, 100); 

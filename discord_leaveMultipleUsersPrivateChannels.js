@@ -78,7 +78,7 @@ module.exports = class DiscordApp {
     this.responseMessages = [];
     var myThis = this;
     this.channels.forEach(channel => {
-      if (channel.recipients.length > 1) {
+      if (channel.type == 3) {
         count++;      
         var options = { 
           method: 'DELETE',
@@ -94,7 +94,7 @@ module.exports = class DiscordApp {
           if (response.statusCode !== 200)
             return callback && callback("Could not leave channel " + channel.id + ".");
           else {
-            myThis.responseMessages.push("User left channel " + channel.id + ". This channel contained users " + channel.recipients.map(e => e.username).join(", ") + ".");            
+            myThis.responseMessages.push("User left group channel " + channel.id + ". This channel contained users " + channel.recipients.map(e => e.username).join(", ") + ".");            
           }
           check++;
         });
@@ -109,8 +109,8 @@ module.exports = class DiscordApp {
         clearInterval(interval);
 
         count == 0 ? 
-          myThis.responseMessages.push("User had no channel containing more than 1 other user.") : 
-          myThis.responseMessages.push("A total of " + count + " channels were left by the user.");
+          myThis.responseMessages.push("User had no group channel to leave.") : 
+          myThis.responseMessages.push("A total of " + count + " group channels were left by the user.");
 
         return callback && callback();
       }

@@ -1,0 +1,42 @@
+html
+  head
+    title=title
+    link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+    link(href='font-awesome/css/font-awesome.min.css' rel='stylesheet')
+    script(src="/jquery/jquery.min.js")
+
+  body
+    div.container
+      div.jumbotron
+        h1 Hello!
+ 
+        p Welcome to my app, ready to get started?
+        p 
+        | Please provide your discord credentials below. 
+        | We will not save your data or share it. If you do not trust us, you can still get the source code and execute it locally on your computer.
+        | Here is how you can do that:
+        ol
+          li Requirements
+            ul
+              li nodejs installed
+          li Steps
+            ul
+              li Download <a href="https://github.com/SimonTod/discord_leaveMultipleUsersPrivateChannels">source code</a>
+              li Extract folder
+              li Navigate to folder from command line interface
+              li Run next commands:
+                ul
+                  li npm install
+                  li node cli_demo.js
+
+        form(name="discord_leave-multiple-users-private-channels" action="/discord_leave-multiple-users-private-channels", method="post")
+          div.form-group
+            label(for="email") Email
+            input.form-control(type="email", name="email", id="email")
+          div.form-group
+            label(for="password") Password
+            input.form-control(type="password", name="password", id="password")
+          input.btn.btn-default(type="submit" value="Submit")
+        div(id="messages")
+
+    script(src="/scripts/discord_leaveMultipleUsersPrivateChannels.js")

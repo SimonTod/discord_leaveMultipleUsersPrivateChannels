@@ -4,7 +4,9 @@ var discordapp = new DiscordApp();
 discordapp.getUserCredentials(function() {
   discordapp.login(function() {
     discordapp.getUsersPrivateChannels(function() {
-      discordapp.leaveMultipleUsersPrivateChannels();
+      discordapp.leaveMultipleUsersPrivateChannels(function() {
+        console.log(discordapp.responseMessages);
+      });
     });
   });
 });

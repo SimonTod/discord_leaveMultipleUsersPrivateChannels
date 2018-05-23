@@ -74,6 +74,7 @@ module.exports = class DiscordApp {
 
   leaveMultipleUsersPrivateChannels(callback) {
     var count = 0;
+    this.responseMessages = [];
     this.channels.forEach(channel => {
       if (channel.recipients.length > 1) {
         count++;
@@ -86,13 +87,13 @@ module.exports = class DiscordApp {
   
         request(options, function (error, response, body) {
           if (response.statusCode !== 200) throw new Error("Could not leave channel" + channel.id);
-          console.log("User left channel " + channel.id + ". This channel contained users " + channel.recipients.map(e => e.username).join(", ") + ".");
+          this.responseMessages.push("User left channel " + channel.id + ". This channel contained users " + channel.recipients.map(e => e.username).join(", ") + ".");
         });
       }
     });
     count == 0 ? 
-      console.log("User had not channel containing more than 1 other user.") : 
-      console.log("A total of " + count + " channels were left by the user.");
+      this.responseMessages.push("User had no channel containing more than 1 other user.") : 
+      this.responseMessages.push("A total of " + count + " channels were left by the user.");
   
     callback && callback();
   }
